@@ -2,6 +2,7 @@ package ma.emsi.gounidimeryem.tp2_meryemgounidi.tests;
 
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.loader.FileSystemDocumentLoader;
+import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
@@ -39,6 +40,10 @@ public class Test4 {
         // Chargement du document, sous la forme d'embeddings, dans une base vectorielle en mémoire
         String nomDocument = "src/main/resources/infos.txt";
         Document document = FileSystemDocumentLoader.loadDocument(nomDocument);
+        
+        // Diviser le document en petits segments pour éviter l'erreur de tokens
+        List<TextSegment> segments = DocumentSplitters.recursive(100, 20).split(document);
+        
         EmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
 
         // Créer le modèle d'embedding
@@ -79,6 +84,7 @@ public class Test4 {
                         .contentRetriever(EmbeddingStoreContentRetriever.builder()
                                 .embeddingStore(embeddingStore)
                                 .embeddingModel(embeddingModel)
+                                .maxResults(5)
                                 .build())
                         .build();
 
