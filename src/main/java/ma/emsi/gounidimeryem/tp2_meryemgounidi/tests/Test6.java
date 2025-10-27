@@ -33,7 +33,7 @@ public final class Test6 {
                 .build();
 
     poserQuestion(assistant,
-        "J'ai prévu d'aller aujourd'hui à Rabat. Est-ce que tu me conseilles de prendre un parapluie ?");
+        "J'ai prévu d'aller aujourd'hui à Safi. Est-ce que tu me conseilles de prendre un parapluie ?");
     poserQuestion(assistant, "Quel temps fait-il à Zagoura ?");
     poserQuestion(assistant, "Qui a écrit La Boîte à merveilles?");
     }
